@@ -80,14 +80,19 @@ class ShellDispatcher {
 			ini_set('max_execution_time', 0);
 		}
 
-		if (!defined('CAKE_CORE_INCLUDE_PATH')) {
+		if (!defined('DS')) {
 			define('DS', DIRECTORY_SEPARATOR);
-			define('CAKE_CORE_INCLUDE_PATH', dirname(dirname(dirname(__FILE__))));
-			define('CAKEPHP_SHELL', true);
-			if (!defined('CORE_PATH')) {
-				define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
-			}
 		}
+		if (!defined('CAKE_CORE_INCLUDE_PATH')) {
+			define('CAKE_CORE_INCLUDE_PATH', dirname(dirname(dirname(__FILE__))));
+
+		if (!defined('CAKEPHP_SHELL')) {
+			define('CAKEPHP_SHELL', true);
+		}
+		if (!defined('CORE_PATH')) {
+			define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
+		}
+		
 	}
 
 /**
@@ -119,9 +124,15 @@ class ShellDispatcher {
  * @return boolean Success.
  */
 	protected function _bootstrap() {
-		define('ROOT', $this->params['root']);
-		define('APP_DIR', $this->params['app']);
-		define('APP', $this->params['working'] . DS);
+		if (!defined('ROOT')) {
+			define('ROOT', $this->params['root']);
+		}
+		if (!defined('APP_DIR')) {
+			define('APP_DIR', $this->params['app']);
+		}
+		if (!defined('APP')) {
+			define('APP', $this->params['working'] . DS);
+		}
 		if (!defined('WWW_ROOT')) {
 			define('WWW_ROOT', APP . $this->params['webroot'] . DS);
 		}
